@@ -21,17 +21,44 @@ emails = [emails[i] for i in range(len(emails)) if statuses[i] == ""]
 statuses = [statuses[i] for i in range(len(statuses)) if statuses[i] == ""]
 liasonss = [liasons[i] for i in range(len(liasons)) if statuses[i] == ""]
 
-#whis is where we do the sending
+#this is where we do the sending does it individually
+#easily improved w jsons (I think) but I forgot that i had to do this by thurs 7-27-18
 def send(names, companies, emails, statuses, liasons):
-    #sends out each email individually
     #need to find a way to account for emails w same copmany
+
+    #html formatted template which will then be modified per email
+    templateHtml = "<p>Hi (first name of contact),</p>" \
+           "<p>My name is (first name), and I'm an organizer for HackRU - a 24-hour biannual hackathon held at Rutgers New Brunswick. We&rsquo;re currently looking for sponsors for our fourteenth HackRU held on April 21-22, 2018 at the Rutgers Athletic Center on Livingston campus at Rutgers University, and we would love for (company) to support us in hosting a great event. You can find out more about HackRU at www.hackru.org .</p>" \
+           "<p>HackRU brings together students of all kinds: programmers, entrepreneurs, designers and more! Over the weekend, students work in small teams to bring their ideas to life using your technologies, and with support from evangelists, fellow students and mentors.</p>" \
+           "<p>I&rsquo;m attaching our sponsorship document below, where we list several packages and benefits we can offer. Also, feel free to let me know if you would like to discuss alternative perks to the listed packages (such as snacks or meals).</p>" \
+           "<p>Please let me know if you have any questions about HackRU and I hope we can have (company) participate in our event!</p>" \
+           "<p>Thank you,<br />" \
+           "(full name)<br />" \
+           "HackRU Sponsorship Team</p>"
+
     for i in range(names):
         subj = "HackRU Sponsoship with " + companies[i]
+        modifiedHtml = replace(templateHtml, names[i], liasons[i], companies[i])
+
         response = sp.transmissions.send(
-                use_sandbox=True,
                 recipients=[emails[i]],
-                html='<p>Hello world</p>',
+                html=modifiedHtml,
                 from_email='shyam@kishan.com',
-                subject=subj
-            )
+                subject=subj,
+                attachments=[
+                   {
+                       "name": "HackRU F18 Sponsorship Document",
+                       "type": "pdf",
+                       "filename": "C:/Users/shyam/Documents/F18 Sponsorship Document.pdf"
+                   }
+                ]
+        )
+#
+def replace(html, name, liason, company):
+    html.replace("(first name of contact)", name)
+    html.replace("(first name)", liason)
+    html.replace("(company)", company)
+    html.replace("(full name", name)
+    return html
+
 print(response)
