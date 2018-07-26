@@ -45,7 +45,7 @@ def send(names, companies, emails, liasons):
            "HackRU Sponsorship Team</p>"
 
     for i in range(len(names)):
-        subj = "HackRU Sponsoship with " + companies[i]
+        subj = "HackRU Sponsorhip with " + companies[i]
 
         modifiedHtml = replace(templateHtml, names[i], liasons[i], companies[i])
 
