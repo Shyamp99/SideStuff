@@ -19,17 +19,13 @@ companies = [companies[i] for i in range(len(companies)) if statuses[i] == ""]
 emails = [emails[i] for i in range(len(emails)) if statuses[i] == ""]
 liasons = [liasons[i] for i in range(len(liasons)) if statuses[i] == ""]
 statuses = [statuses[i] for i in range(len(statuses)) if statuses[i] == ""]
-print(names)
-print(companies)
-print(emails)
-print(liasons)
-print(statuses)
 
 
 def replace(html, name, liason, company):
-    firstName = name.split()[0]
-    html = html.replace("(first name of contact)", name)
-    html = html.replace("(first name)", firstName)
+    firstNameLiason = liason.split()[0]
+    firstNameContact = name.split()[0]
+    html = html.replace("(first name of contact)", firstNameContact)
+    html = html.replace("(first name)", firstNameLiason)
     html = html.replace("(company)", company)
     html = html.replace("(full name)", liason)
     return html
@@ -67,8 +63,15 @@ def send(names, companies, emails, liasons):
                 ]
         )
 
-
-
-
-send(names, companies, emails, liasons)
+templateHtml = "<p>Hi (first name of contact),</p>" \
+                   "<p>My name is (first name), and I'm an organizer for HackRU - a 24-hour biannual hackathon held at Rutgers New Brunswick. We&rsquo;re currently looking for sponsors for our fourteenth HackRU held on April 21-22, 2018 at the Rutgers Athletic Center on Livingston campus at Rutgers University, and we would love for (company) to support us in hosting a great event. You can find out more about HackRU at www.hackru.org .</p>" \
+                   "<p>HackRU brings together students of all kinds: programmers, entrepreneurs, designers and more! Over the weekend, students work in small teams to bring their ideas to life using your technologies, and with support from evangelists, fellow students and mentors.</p>" \
+                   "<p>I&rsquo;m attaching our sponsorship document below, where we list several packages and benefits we can offer. Also, feel free to let me know if you would like to discuss alternative perks to the listed packages (such as snacks or meals).</p>" \
+                   "<p>Please let me know if you have any questions about HackRU and I hope we can have (company) participate in our event!</p>" \
+                   "<p>Thank you,<br />" \
+                   "(full name)<br />" \
+                   "HackRU Sponsorship Team</p>"
+print(replace(templateHtml,names[0],liasons[0],companies[0]))
+#send(names, companies, emails, liasons)
+print("EMAILS SENT!")
 
