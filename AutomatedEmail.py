@@ -1,4 +1,3 @@
-
 from gspreadTest import openSheet
 from sparkpost import SparkPost
 
@@ -18,14 +17,26 @@ liasons = wks.col_values(5)
 names = [names[i] for i in range(len(names)) if statuses[i] == ""]
 companies = [companies[i] for i in range(len(companies)) if statuses[i] == ""]
 emails = [emails[i] for i in range(len(emails)) if statuses[i] == ""]
+liasons = [liasons[i] for i in range(len(liasons)) if statuses[i] == ""]
 statuses = [statuses[i] for i in range(len(statuses)) if statuses[i] == ""]
-liasonss = [liasons[i] for i in range(len(liasons)) if statuses[i] == ""]
+print(names)
+print(companies)
+print(emails)
+print(liasons)
+print(statuses)
+
+
+def replace(html, name, liason, company):
+    firstName = name.split()[0]
+    html = html.replace("(first name of contact)", name)
+    html = html.replace("(first name)", firstName)
+    html = html.replace("(company)", company)
+    html = html.replace("(full name)", liason)
+    return html
 
 #this is where we do the sending does it individually
 #easily improved w jsons (I think) but I forgot that i had to do this by thurs 7-27-18
-def send(names, companies, emails, statuses, liasons):
-    #need to find a way to account for emails w same copmany
-
+def send(names, companies, emails, liasons):
     #html formatted template which will then be modified per email
     templateHtml = "<p>Hi (first name of contact),</p>" \
            "<p>My name is (first name), and I'm an organizer for HackRU - a 24-hour biannual hackathon held at Rutgers New Brunswick. We&rsquo;re currently looking for sponsors for our fourteenth HackRU held on April 21-22, 2018 at the Rutgers Athletic Center on Livingston campus at Rutgers University, and we would love for (company) to support us in hosting a great event. You can find out more about HackRU at www.hackru.org .</p>" \
@@ -36,10 +47,12 @@ def send(names, companies, emails, statuses, liasons):
            "(full name)<br />" \
            "HackRU Sponsorship Team</p>"
 
-    for i in range(names):
+    for i in range(len(names)):
         subj = "HackRU Sponsoship with " + companies[i]
+
         modifiedHtml = replace(templateHtml, names[i], liasons[i], companies[i])
 
+        #p self explanatory but I need to find a way to account for emails w same company
         response = sp.transmissions.send(
                 recipients=[emails[i]],
                 html=modifiedHtml,
@@ -53,12 +66,9 @@ def send(names, companies, emails, statuses, liasons):
                    }
                 ]
         )
-#
-def replace(html, name, liason, company):
-    html.replace("(first name of contact)", name)
-    html.replace("(first name)", liason)
-    html.replace("(company)", company)
-    html.replace("(full name", name)
-    return html
 
-print(response)
+
+
+
+send(names, companies, emails, liasons)
+

@@ -22,6 +22,7 @@ def openSheet():
 
 
 #just me testing out stuff
+#ignore everything below this
 wks = openSheet()
 #values_list = wks.col_values(1)
 #print(values_list)
@@ -36,8 +37,13 @@ def rando(names,companies,emails, status):
     emails = [emails[i] for i in range(len(emails)) if status[i] == ""]
     status = [status[i] for i in range(len(status)) if status[i] == ""]
 
-rando(names,companies,emails, status)
-print(names)
-print(companies)
-print(emails)
-print(status)
+#rando(names,companies,emails, status)
+#print(names)
+#print(companies)
+#print(emails)
+#print(status)
+
+
+
+
+#print(response)
