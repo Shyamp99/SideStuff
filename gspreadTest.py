@@ -1,5 +1,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+#basically j use this file so AutomatedEmail isn't too crowded
+
 
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -18,32 +20,3 @@ def openSheet():
     return wks
 
 
-
-
-
-#just me testing out stuff
-#ignore everything below this
-wks = openSheet()
-#values_list = wks.col_values(1)
-#print(values_list)
-
-names = wks.col_values(1)
-companies = wks.col_values(2)
-emails = wks.col_values(3)
-status = wks.col_values(4)
-def rando(names,companies,emails, status):
-    names = [names[i] for i in range(len(names)) if status[i] == ""]
-    companies = [companies[i] for i in range(len(companies)) if status[i] == ""]
-    emails = [emails[i] for i in range(len(emails)) if status[i] == ""]
-    status = [status[i] for i in range(len(status)) if status[i] == ""]
-
-#rando(names,companies,emails, status)
-#print(names)
-#print(companies)
-#print(emails)
-#print(status)
-
-
-
-
-#print(response)

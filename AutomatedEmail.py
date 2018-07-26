@@ -21,6 +21,7 @@ liasons = [liasons[i] for i in range(len(liasons)) if statuses[i] == ""]
 statuses = [statuses[i] for i in range(len(statuses)) if statuses[i] == ""]
 
 
+#replaces the prommpts with corresponding values
 def replace(html, name, liason, company):
     firstNameLiason = liason.split()[0]
     firstNameContact = name.split()[0]
@@ -31,7 +32,7 @@ def replace(html, name, liason, company):
     return html
 
 #this is where we do the sending does it individually
-#easily improved w jsons (I think) but I forgot that i had to do this by thurs 7-27-18
+#easily improved w jsons (I think) but I forgot that i had to do this by thurs 7-26 so yep
 def send(names, companies, emails, liasons):
     #html formatted template which will then be modified per email
     templateHtml = "<p>Hi (first name of contact),</p>" \
@@ -56,7 +57,7 @@ def send(names, companies, emails, liasons):
                 subject=subj,
                 attachments=[
                    {
-                       "name": "HackRU F18 Sponsorship Document",
+                       "name": "HackRU F18 Sponsorship Document.pdf",
                        "type": "pdf",
                        "filename": "C:/Users/shyam/Documents/F18 Sponsorship Document.pdf"
                    }
@@ -64,6 +65,6 @@ def send(names, companies, emails, liasons):
         )
 
 
-#send(names, companies, emails, liasons)
-print("EMAILS SENT!")
+send(names, companies, emails, liasons)
+print("EMAILS SENT! MAY HACKRU ENDURE FOR MORE THAN 100 SEMESTERS!")
 
