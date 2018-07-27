@@ -7,11 +7,11 @@ sp = SparkPost('fee6850f75862cdd3998eeb0a0d5306e66294743')
 wks = openSheet()
 
 #getting the values
-names = wks.col_values(1)
-companies = wks.col_values(2)
-emails = wks.col_values(3)
-statuses = wks.col_values(4)
-liasons = wks.col_values(5)
+names = wks.col_values(5)
+companies = wks.col_values(1)
+emails = wks.col_values(6)
+statuses = wks.col_values(2)
+liasons = wks.col_values(4)
 
 #removing people we've already emailed
 names = [names[i] for i in range(len(names)) if statuses[i] == ""]
