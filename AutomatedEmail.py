@@ -1,7 +1,7 @@
 from gspreadTest import openSheet
 from sparkpost import SparkPost
 
-sp = SparkPost('fee6850f75862cdd3998eeb0a0d5306e66294743')
+sp = SparkPost('insert api key here')
 
 #opening up the sheet so we can get all values in each column
 wks = openSheet()
